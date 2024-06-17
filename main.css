@@ -1,8 +1,30 @@
-.boton {
-    background-color: blue;
-    color: white;
+body {
+    background-color: pink;
 }
 
-body {
-    background-color: white;
+main {
+    height: 78vh;
+}
+
+footer {
+    align-items: center;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-brand {
+    width: 30%;
+}
+
+.navbar-brand img {
+    width: 30%;
+}
+
+.badge {
+    display: flex;
+    font-size: 2rem;
+    justify-content: flex-end;
 }
