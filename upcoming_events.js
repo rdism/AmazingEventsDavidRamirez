@@ -202,7 +202,7 @@ function pintarTarjetas(eventos) {
 
     for (let i = 0; i < eventos.length; i++) {
         let evento = eventos[i];
-        if (evento.date < fechaActual) {
+        if (evento.date > fechaActual) {
             let tarjeta = document.createElement("div")
             tarjeta.className = "col col-xs-12 col-sm-6 col-md-3"
             tarjeta.innerHTML = `
