@@ -28,3 +28,7 @@ h1 {
     font-size: 2rem;
     justify-content: flex-end;
 }
+
+.card {
+	width: 17rem;
+}
