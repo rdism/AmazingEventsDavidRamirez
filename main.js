@@ -195,6 +195,42 @@ const data = {
     ],
 };
 
+document.addEventListener("DOMContentLoaded", () => {
+    pintarCategoriasParaChequear();
+})
+
+function categoriasParaChequear(eventos) {
+    let categorias = new Set();
+    for (let i = 0; i < eventos.length; i++) {
+        categorias.add(eventos[i].category)
+    }
+    return(categorias);
+}
+
+
+console.log(categoriasParaChequear(data.events));
+console.log(categoriasParaChequear(data.events));
+
+function pintarCategoriasParaChequear() {
+    let contenedorC = document.getElementById("contenedorCheckboxes");
+    
+    for (let i = 0; i < categoriasParaChequear(data.events).size; i++) {
+        let categoriaCheckbox = document.createElement("div")
+        categoriaCheckbox.className = "col col-xs-6 col-sm-6 col-md-1 col-lg-1"
+        categoriaCheckbox.innerHTML = `
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheck${i}" >
+                    <label class="form-check-label" for="flexCheck${i}">
+                        Category
+                    </label>
+            </div>`
+
+        contenedorC.appendChild(categoriaCheckbox);
+    }
+}
+
+
+
 function pintarTarjetas(eventos) {
     let contenedor = document.getElementById("contenedorTarjetas")
 
