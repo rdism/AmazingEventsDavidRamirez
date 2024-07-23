@@ -14,18 +14,17 @@
 <body>
 
     <header>
-        <div class="container">
-            <nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-body"
-                data-bs-theme="light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="./index.html"><img src="./images/amazing_brand.png" alt=""></a>
+        <div class="">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="./index.html"><img src="./images/amazing_brand.png" alt="Amazing Events"></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <ul class="navbar-nav ms-auto ">
                             <li class="nav-item">
                                 <a class="nav-link" href="./index.html">Home</a>
                             </li>
@@ -49,7 +48,7 @@
 
     </header>
     <main>
-        <div class="container">
+        <div class="container mt-4">
             <div class="carousel slide">
                 <div class="carousel-inner active">
                     <a>
@@ -65,51 +64,12 @@
             </div>
         </div>
         <div class="container">
-            <div class="row">
-                <div class="col col-xs-6 col-sm-6 col-md-1 col-lg-1">
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheck1">
-                        <label class="form-check-label" for="flexCheck1">
-                            Category
-                        </label>
-                    </div>
-                </div>
-                <div class="col ms-auto col-xs-6 col-sm-6 col-md-1 col-lg-1">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheck2">
-                        <label class="form-check-label" for="flexCheck2">
-                            Category
-                        </label>
-                    </div>
-                </div>
-                <div class="col ms-auto col-xs-6 col-sm-6 col-md-1 col-lg-1">
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheck3">
-                        <label class="form-check-label" for="flexCheck3">
-                            Category
-                        </label>
-                    </div>
-                </div>
-                <div class="col ms-auto col-xs-6 col-sm-6 col-md-1 col-lg-1">
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheck4">
-                        <label class="form-check-label" for="flexCheck4">
-                            Category
-                        </label>
-                    </div>
-                </div>
-                <div class="col ms-auto col-xs-6 col-sm-6 col-md-6 col-lg-1">
-                    <div class="form-check ">
-                        <input class="form-check-input" type="checkbox" value="" id="flexCheck5">
-                        <label class="form-check-label" for="flexCheck5">
-                            Category
-                        </label>
-                    </div>
-                </div>
-                <div class="col-12 col-lg-6 ms-auto">
+            <div class="d-flex row">
+                <div class="btn-group" role="group" id="contenedorCheckboxes"></div>
+                <div class="col-12 col-lg-4 ms-auto ">
                     <form class="d-flex" role="search">
-                        <input class="form-control  me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+                        <input class="form-control  me-2" type="text" placeholder="Search" aria-label="Search" id="entradaBusqueda">
+                        <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
                     </form>
                 </div>
             </div>

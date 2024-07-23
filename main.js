@@ -199,6 +199,7 @@ document.addEventListener("DOMContentLoaded", () => {
     pintarCategoriasParaChequear();
     pintarTarjetas(data.events);
     document.getElementById("entradaBusqueda").addEventListener("keyup", filtrarEventos);
+    document.getElementById('contenedorCheckboxes').addEventListener('change', filtrarEventos);
 })
 
 function categoriasParaChequear(eventos) {
@@ -213,27 +214,27 @@ function pintarCategoriasParaChequear() {
     let contCheckbox = document.getElementById("contenedorCheckboxes");
 
     let categorias = categoriasParaChequear(data.events);
+    let btnGroup = document.createElement("div");
+    btnGroup.className = "btn-group";
+    btnGroup.role = "group";
+    
     let i = 0;
     categorias.forEach((categoria) => {
-        let categoriaCheckbox = document.createElement("div")
-        categoriaCheckbox.className = "col col-xs-6 col-sm-6 col-md-1 col-lg-1"
-        categoriaCheckbox.innerHTML = `
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="${categoria}" id="flexCheck${i}" >
-                    <label class="form-check-label" for="flexCheck${i}">
-                        ${categoria}
-                    </label>
-            </div>`;
+        let inputCheckbox = document.createElement('input');
+        inputCheckbox.type = "checkbox";
+        inputCheckbox.className = "form-check-input btn-check";
+        inputCheckbox.id = `flexCheck${i}`;
 
-        contCheckbox.appendChild(categoriaCheckbox);
+        let labelCheckbox = document.createElement('label');
+        labelCheckbox.className = "btn btn-primary";
+        labelCheckbox.setAttribute("for", `flexCheck${i}`);
+        labelCheckbox.innerText = categoria;
 
-        let checkbox = categoriaCheckbox.querySelector('.form-check-input');
-        checkbox.addEventListener('change', () => {
-            filtrarEventos();
-        });
-
+        btnGroup.appendChild(inputCheckbox);
+        btnGroup.appendChild(labelCheckbox);
         i++;
     });
+    contCheckbox.appendChild(btnGroup);
 }
 
 
@@ -242,7 +243,6 @@ function pintarTarjetas(eventos) {
     let contenedor = document.getElementById("contenedorTarjetas");
     contenedor.innerHTML = '';
 
-    // let fechaActual = data.currentDate;
 
     for (let i = 0; i < eventos.length; i++) {
         let evento = eventos[i];
@@ -250,7 +250,7 @@ function pintarTarjetas(eventos) {
         tarjeta.className = "col col-xs-12 col-sm-6 col-md-3"
         tarjeta.innerHTML = `
                     <div id="tarjetas">
-                        <div class="card text-center" >
+                        <div class="card h-100 text-center" >
                             <img src=${evento.image} class="card-img-top" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title ">${evento.name}</h5>
@@ -270,18 +270,12 @@ function pintarTarjetas(eventos) {
 };
 
 function filtrarEventos () {
-    let checkboxes = document.querySelectorAll('.form-check-input');
-    let categoriasSeleccionadas = []
-
-    checkboxes.forEach((checkbox) => {
-        if (checkbox.checked) {
-            categoriasSeleccionadas.push(checkbox.value);
-        }
-    });
-
     let entradaBusqueda = document.getElementById('entradaBusqueda').value.toLowerCase();
+    let checkboxes = document.querySelectorAll('#contenedorCheckboxes input[type="checkbox"]:checked');
+    let categoriasSeleccionadas = Array.from(checkboxes).map(checkbox => checkbox.nextElementSibling.innerText)
+
     let eventosFiltrados = data.events.filter((evento) => {
-        let coincideCategoria = categoriasSeleccionadas.length === 0 || categoriasSeleccionadas.includes(evento.category);
+        let coincideCategoria = categoriasSeleccionadas.length == 0 || categoriasSeleccionadas.includes(evento.category);
         let coincideTexto = evento.name.toLowerCase().includes(entradaBusqueda);
         return coincideCategoria && coincideTexto
     })
