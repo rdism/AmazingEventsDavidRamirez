@@ -197,6 +197,8 @@ const data = {
 
 document.addEventListener("DOMContentLoaded", () => {
     pintarCategoriasParaChequear();
+    pintarTarjetas(data.events);
+    document.getElementById("entradaBusqueda").addEventListener("keyup", filtrarEventos);
 })
 
 function categoriasParaChequear(eventos) {
@@ -204,35 +206,41 @@ function categoriasParaChequear(eventos) {
     for (let i = 0; i < eventos.length; i++) {
         categorias.add(eventos[i].category)
     }
-    return(categorias);
+    return (categorias);
 }
 
-
-console.log(categoriasParaChequear(data.events));
-console.log(categoriasParaChequear(data.events));
-
 function pintarCategoriasParaChequear() {
-    let contenedorC = document.getElementById("contenedorCheckboxes");
-    
-    for (let i = 0; i < categoriasParaChequear(data.events).size; i++) {
+    let contCheckbox = document.getElementById("contenedorCheckboxes");
+
+    let categorias = categoriasParaChequear(data.events);
+    let i = 0;
+    categorias.forEach((categoria) => {
         let categoriaCheckbox = document.createElement("div")
         categoriaCheckbox.className = "col col-xs-6 col-sm-6 col-md-1 col-lg-1"
         categoriaCheckbox.innerHTML = `
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="flexCheck${i}" >
+                <input class="form-check-input" type="checkbox" value="${categoria}" id="flexCheck${i}" >
                     <label class="form-check-label" for="flexCheck${i}">
-                        Category
+                        ${categoria}
                     </label>
-            </div>`
+            </div>`;
 
-        contenedorC.appendChild(categoriaCheckbox);
-    }
+        contCheckbox.appendChild(categoriaCheckbox);
+
+        let checkbox = categoriaCheckbox.querySelector('.form-check-input');
+        checkbox.addEventListener('change', () => {
+            filtrarEventos();
+        });
+
+        i++;
+    });
 }
 
 
 
 function pintarTarjetas(eventos) {
-    let contenedor = document.getElementById("contenedorTarjetas")
+    let contenedor = document.getElementById("contenedorTarjetas");
+    contenedor.innerHTML = '';
 
     // let fechaActual = data.currentDate;
 
@@ -259,6 +267,24 @@ function pintarTarjetas(eventos) {
 
         contenedor.appendChild(tarjeta);
     }
-}
+};
 
-pintarTarjetas(data.events);
+function filtrarEventos () {
+    let checkboxes = document.querySelectorAll('.form-check-input');
+    let categoriasSeleccionadas = []
+
+    checkboxes.forEach((checkbox) => {
+        if (checkbox.checked) {
+            categoriasSeleccionadas.push(checkbox.value);
+        }
+    });
+
+    let entradaBusqueda = document.getElementById('entradaBusqueda').value.toLowerCase();
+    let eventosFiltrados = data.events.filter((evento) => {
+        let coincideCategoria = categoriasSeleccionadas.length === 0 || categoriasSeleccionadas.includes(evento.category);
+        let coincideTexto = evento.name.toLowerCase().includes(entradaBusqueda);
+        return coincideCategoria && coincideTexto
+    })
+
+    pintarTarjetas(eventosFiltrados);
+}
