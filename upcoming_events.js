@@ -259,7 +259,7 @@ function pintarTarjetas(eventos) {
                                 <p class="card-text">${evento.description}</p>
                                 <div class="row">
                                     <div class="col-6"><a>${evento.price}</a></div>
-                                    <div class="col-6"> <a href="details.html"
+                                    <div class="col-6"> <a href="details.html?id=${evento._id}"
                                             class="btn btn-primary ms-auto">Details</a>
                                     </div>
                                 </div>
