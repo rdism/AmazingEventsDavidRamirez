@@ -243,6 +243,13 @@ function pintarTarjetas(eventos) {
     let contenedor = document.getElementById("contenedorTarjetas");
     contenedor.innerHTML = '';
 
+    if (eventos.length === 0) {
+        let mensaje = document.createElement("div");
+        mensaje.className = "alert alert-warning text-center";
+        mensaje.textContent = "No hay eventos para mostrar.";
+        contenedor.appendChild(mensaje);
+        return;
+    }
 
     for (let i = 0; i < eventos.length; i++) {
         let evento = eventos[i];
