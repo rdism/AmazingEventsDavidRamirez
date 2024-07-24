@@ -202,6 +202,8 @@ document.addEventListener("DOMContentLoaded", () => {
     mostrarDetallesEvento(eventDetails);
 });
 
+
+// Voy a cambiar esta función para que modifique una tarjeta en el html
 function mostrarDetallesEvento(evento) {
     const contenedor = document.getElementById('detalles');
     if (evento) {
