@@ -29,3 +29,14 @@ h1 {
 .card {
     width: 17rem;
 }
+
+.card img {
+    max-height: 150px;
+    object-fit: cover;
+}
+
+.card-text {
+    max-height: 46px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
