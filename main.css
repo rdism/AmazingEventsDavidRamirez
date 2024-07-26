@@ -27,7 +27,8 @@ h1 {
 }
 
 .card {
-    width: 17rem;
+    max-height: 350px;
+    width: 100%;
 }
 
 .card img {
@@ -38,5 +39,5 @@ h1 {
 .card-text {
     max-height: 46px;
     overflow: hidden;
-    text-overflow: ellipsis;
+    text-overflow: ellipsis !important;
 }
