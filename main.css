@@ -36,8 +36,18 @@ h1 {
     object-fit: cover;
 }
 
+.card-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: bold;
+}
+
 .card-text {
     max-height: 46px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Número de líneas antes de truncar */
+    -webkit-box-orient: vertical; /* Orientación del contenedor */
     overflow: hidden;
-    text-overflow: ellipsis !important;
+    text-overflow: ellipsis;
 }
