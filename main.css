@@ -3,6 +3,16 @@ body, html {
     background-color: lightblue;
 }
 
+main {
+    flex: 1;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 91vh;
+}
+
 footer {
     align-items: center;
 }
@@ -17,13 +27,14 @@ h1 {
 }
 
 .navbar-brand img {
-    height: 30px;
+    height: 26px;
 }
 
 .badge {
     display: flex;
-    font-size: 2rem;
+    font-size: 1rem;
     justify-content: flex-end;
+    font-weight: normal;
 }
 
 .card {
@@ -50,4 +61,8 @@ h1 {
     -webkit-box-orient: vertical; /* Orientación del contenedor */
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.search-input {
+    margin-left: 78px;
 }
