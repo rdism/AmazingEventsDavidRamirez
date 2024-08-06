@@ -92,3 +92,17 @@ export function filtrarEventos(eventos) {
 
     pintarTarjetas(eventosFiltrados);
 }
+
+export function filtrarEventosPorFecha(fechaActual, eventos, filtro) {
+    let eventosFiltrados = [];
+
+    if (filtro === "all") {
+        eventosFiltrados = eventos;
+    } else if (filtro === "upcoming_events") {
+        eventosFiltrados = eventos.filter(evento => new Date(evento.date) > new Date(fechaActual));
+    } else if (filtro === "past_events") {
+        eventosFiltrados = eventos.filter(evento => new Date(evento.date) < new Date(fechaActual));
+    }
+
+    pintarTarjetas(eventosFiltrados);
+}
