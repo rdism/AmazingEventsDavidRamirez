@@ -129,3 +129,189 @@ export function mostrarDetallesEvento(evento) {
         contenedor.innerHTML = `<p>Event not found.</p>`;
     }
 }
+
+function calcularMayor(eventos) {
+    let porcentaje = 0;
+    let title = "";
+    let asistencia = 0;
+    let capacidad = 0;
+
+    eventos.forEach(evento => {
+        const numero = (evento.assistance / evento.capacity) * 100;
+        if (numero > porcentaje) {
+            porcentaje = numero;
+            title = evento.name;
+            asistencia = evento.assistance;
+            capacidad = evento.capacity;
+        }
+    });
+
+    return `The largest is ${title} with ${porcentaje.toFixed(2)}% attendance, (${asistencia} over ${capacidad})`;
+}
+
+function calcularMenor(eventos) {
+    let porcentaje = 100;
+    let title = "";
+    let asistencia = 0;
+    let capacidad = 0;
+
+    eventos.forEach(evento => {
+        const numero = (evento.assistance / evento.capacity) * 100;
+        if (numero < porcentaje) {
+            porcentaje = numero;
+            title = evento.name;
+            asistencia = evento.assistance;
+            capacidad = evento.capacity;
+        }
+    });
+
+    return `The lowest is ${title} with ${porcentaje}% attendance (${asistencia} over ${capacidad})`;
+}
+
+function mayorCapacidad(eventos) {
+    let mayor = 0;
+    let title = "";
+
+    eventos.forEach(evento => {
+        if (evento.capacity > mayor) {
+            mayor = evento.capacity;
+            title = evento.name;
+        }
+    });
+
+    return `The largest is ${title} with a capacity of ${mayor}`;
+}
+
+function infoPastEventsPorcategorias(categorias, eventos) {
+    const array = [];
+    categorias.forEach(categoria => {
+        const catEvents = eventos.filter(evento => categoria === evento.category);
+        const ingresos = catEvents.reduce(
+            (acum, evento) => acum + evento.price * (evento.estimate || evento.assistance), 0
+        );
+        const attendance = catEvents.reduce(
+            (acum, event) => acum + ((event.assistance || event.estimate) / event.capacity) * 100, 0
+        );
+        const ingresosPromedio = ingresos / catEvents.length;
+        array.push({
+            categoria,
+            ingresos,
+            ingresosPromedio,
+            attendance: attendance / catEvents.length,
+        });
+    });
+    return array;
+}
+
+function infoUpcomingEventsPorcategorias(categorias, eventos) {
+    const array = [];
+    categorias.forEach(category => {
+        const catEvents = eventos.filter(event => category === event.category);
+        const ingresos = catEvents.reduce(
+            (acum, event) => acum + event.price * (event.estimate || event.assistance), 0
+        );
+        const attendance = catEvents.reduce(
+            (acum, event) => acum + ((event.assistance || event.estimate) / event.capacity) * 100, 0
+        );
+        const ingresosPromedio = ingresos / catEvents.length;
+        array.push({
+            category,
+            ingresos,
+            ingresosPromedio,
+            attendance: attendance / catEvents.length,
+        });
+    });
+    return array;
+}
+
+export function generarStats(datatotal, pasadosData, futurosData, categoriasPastEvents, categoriasUpcomingEvents) {
+    const contenedor = document.createElement('div');
+    contenedor.className = 'container';
+
+    const tableResponsive = document.createElement('div');
+    tableResponsive.className = 'table-responsive';
+
+    const table = document.createElement('table');
+    table.className = 'table table-hover table-hover-custom table-striped caption-top rounded-table';
+    table.innerHTML = `
+        <thead class="table-dark">
+            <tr><th colspan="3" class="text-center text-white fw-medium">Events Statistics</th></tr>
+            <tr>
+                <th class="fw-semibold">Event with the highest percentage of attendance</th>
+                <th class="fw-semibold">Event with the lowest percentage of attendance</th>
+                <th class="fw-semibold">Event with larger capacity</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>${calcularMayor(pasadosData)}</td>
+                <td>${calcularMenor(pasadosData)}</td>
+                <td>${mayorCapacidad(datatotal)}</td>
+            </tr>
+        </tbody>`;
+
+    tableResponsive.appendChild(table);
+
+    const tableUpcoming = document.createElement('table');
+    const tbodyTableUpcoming = document.createElement('tbody');
+    tableUpcoming.className = 'table table-hover table-hover-custom table-striped caption-top rounded-table';
+    tableUpcoming.innerHTML = `
+        <thead class="table-dark">
+            <tr>
+                <th colspan="4" class="text-center text-white fw-medium">Upcoming events statistics</th>
+            </tr>
+            <tr>
+                <th class="fw-semibold">Categories</th>
+                <th class="fw-semibold">Revenues</th>
+                <th class="fw-semibold">Average Income</th>
+                <th class="fw-semibold">Attendance</th>
+            </tr>
+        </thead>`;
+
+    infoUpcomingEventsPorcategorias(categoriasUpcomingEvents, futurosData).forEach(event => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${event.category}</td>
+            <td>$ ${event.ingresos.toLocaleString('es-AR')}</td>
+            <td>$ ${event.ingresosPromedio.toLocaleString('es-AR')}</td>
+            <td>${event.attendance.toFixed(2)} %</td>`;
+        tbodyTableUpcoming.appendChild(tr);
+    });
+
+    tableUpcoming.appendChild(tbodyTableUpcoming);
+    const tableUpcomingResponsive = document.createElement('div');
+    tableUpcomingResponsive.className = 'table-responsive';
+    tableUpcomingResponsive.appendChild(tableUpcoming);
+
+    const tablePast = document.createElement('table');
+    const tbodyTablePast = document.createElement('tbody');
+    tablePast.className = 'table table-hover table-hover-custom table-striped caption-top rounded-table';
+    tablePast.innerHTML = `
+        <thead class="table-dark">
+            <tr>
+                <th colspan="4" class="text-center text-white fw-medium">Past Events Statistics</th>
+            </tr>
+            <tr>
+                <th class="fw-semibold">Categories</th>
+                <th class="fw-semibold">Revenues</th>
+                <th class="fw-semibold">Average Income</th>
+                <th class="fw-semibold">Attendance</th>
+            </tr>
+        </thead>`;
+
+    infoPastEventsPorcategorias(categoriasPastEvents, pasadosData).forEach(event => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${event.categoria}</td>
+            <td>$ ${event.ingresos.toLocaleString('es-AR')}</td>
+            <td>$ ${event.ingresosPromedio.toLocaleString('es-AR')}</td>
+            <td>${event.attendance.toFixed(2)} %</td>`;
+        tbodyTablePast.appendChild(tr);
+    });
+
+    tablePast.appendChild(tbodyTablePast);
+    const tablePastResponsive = document.createElement('div');
+    tablePastResponsive.className = 'table-responsive';
+    tablePastResponsive.appendChild(tablePast);
+
+    contenedor.append(tableResponsive, tableUpcomingResponsive, tablePastResponsive);
+    return contenedor;
+}
