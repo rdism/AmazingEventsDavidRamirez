@@ -99,9 +99,9 @@ export function filtrarEventosPorFecha(fechaActual, eventos, filtro) {
     if (filtro === "all") {
         eventosFiltrados = eventos;
     } else if (filtro === "upcoming_events") {
-        eventosFiltrados = eventos.filter(evento => new Date(evento.date) > new Date(fechaActual));
+        eventosFiltrados = eventos.filter(evento => evento.date > fechaActual);
     } else if (filtro === "past_events") {
-        eventosFiltrados = eventos.filter(evento => new Date(evento.date) < new Date(fechaActual));
+        eventosFiltrados = eventos.filter(evento => evento.date < fechaActual);
     }
 
     pintarTarjetas(eventosFiltrados);
