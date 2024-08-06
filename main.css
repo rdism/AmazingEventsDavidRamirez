@@ -38,6 +38,7 @@ h1 {
 }
 
 .card {
+    min-height: 315px;
     max-height: 350px;
     width: 100%;
 }

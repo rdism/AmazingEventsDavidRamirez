@@ -60,9 +60,9 @@ export function pintarTarjetas(eventos) {
         tarjeta.className = "col col-xs-12 col-sm-6 col-md-3 p-2";
         tarjeta.innerHTML = `
                     <div id="tarjetas">
-                        <div class="card h-100 text-center" >
-                            <img src=${evento.image} class="card-img-top" alt="...">
-                            <div class="card-body">
+                        <div class="card  text-center" >
+                            <img src=${evento.image} class="card-img-top mb-auto" alt="...">
+                            <div class="card-body mt-auto">
                                 <h5 class="card-title ">${evento.name}</h5>
                                 <p class="card-text ">${evento.description}</p>
                                 <div class="row">
