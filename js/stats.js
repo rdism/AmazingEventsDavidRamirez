@@ -1,4 +1,4 @@
-import { obtenerData, generarStats } from "./modules/functions.js";
+import { obtenerData, generarStats } from "../modules/functions.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const data = await obtenerData('https://aulamindhub.github.io/amazing-api/events.json');

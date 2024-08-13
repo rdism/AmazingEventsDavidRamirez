@@ -1,4 +1,4 @@
-import { obtenerData, pintarCategoriasParaChequear, filtrarEventos, filtrarEventosPorFecha } from './modules/functions.js';
+import { obtenerData, pintarCategoriasParaChequear, filtrarEventos, filtrarEventosPorFecha } from '../modules/functions.js';
 
 
 document.addEventListener("DOMContentLoaded", async () => {
